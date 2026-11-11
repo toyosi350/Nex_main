@@ -1,0 +1,2618 @@
+
+/* ============================================================
+   NEX-IV — LIVELY SAAS DESIGN SYSTEM
+   Cream • Sea Glass • Dark Cocoa • Sage
+   ============================================================ */
+
+:root {
+  color-scheme: light;
+
+  /* Brand */
+  --color-cream: #fff8e7;
+  --color-teal-light: #cfe1e2;
+  --color-teal: #6c999b;
+  --color-teal-dark: #416e71;
+  --color-brown-dark: #341f1a;
+  --color-brown-soft: #72574f;
+  --color-sage: #8b9f6c;
+  --color-coral: #c9826e;
+  --color-gold: #d6aa58;
+
+  /* Surfaces */
+  --color-background: #f7f5ee;
+  --color-surface: #ffffff;
+  --color-surface-alt: #edf4f2;
+  --color-surface-warm: #fff1d8;
+
+  /* Text */
+  --color-text-primary: #341f1a;
+  --color-text-secondary: #71635d;
+  --color-text-muted: #92857d;
+
+  /* Actions */
+  --color-primary: #416e71;
+  --color-primary-hover: #34595c;
+  --color-border: #e7e1d6;
+  --color-border-strong: #c9bbae;
+
+  /* Status */
+  --color-success: #3f7d5a;
+  --color-success-bg: #e5f2ea;
+  --color-warning: #a77720;
+  --color-warning-bg: #fff1d1;
+  --color-danger: #a94442;
+  --color-danger-bg: #f9e8e7;
+  --color-info: #527b82;
+  --color-info-bg: #e7f0f1;
+
+  /* Shadows */
+  --shadow-sm: 0 3px 10px rgba(52, 31, 26, 0.045);
+  --shadow-md: 0 9px 25px rgba(52, 31, 26, 0.075);
+  --shadow-lg: 0 18px 40px rgba(52, 31, 26, 0.12);
+
+  /* Shape */
+  --radius-sm: 8px;
+  --radius-md: 13px;
+  --radius-lg: 19px;
+  --radius-xl: 25px;
+
+  /* Layout */
+  --sidebar-width: 256px;
+  --sidebar-collapsed: 72px;
+  --topbar-height: 72px;
+
+  /* Typography */
+  --font-sans: Inter, "Segoe UI", system-ui, sans-serif;
+  --font-mono: "SFMono-Regular", Consolas, monospace;
+
+  font-family: var(--font-sans);
+  color: var(--color-text-primary);
+  background: var(--color-background);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 320px;
+  min-height: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--color-text-primary);
+  background:
+    radial-gradient(
+      circle at 95% 0%,
+      rgba(207, 225, 226, 0.42),
+      transparent 28rem
+    ),
+    var(--color-background);
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  text-align: left;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0 0 8px;
+  color: var(--color-text-primary);
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+h1 {
+  font-size: clamp(26px, 3vw, 36px);
+  letter-spacing: -1.1px;
+}
+
+h2 {
+  font-size: 22px;
+  letter-spacing: -0.45px;
+}
+
+h3 {
+  font-size: 17px;
+}
+
+p {
+  margin: 0 0 14px;
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+img {
+  max-width: 100%;
+}
+
+svg {
+  flex-shrink: 0;
+}
+
+.muted {
+  color: var(--color-text-muted);
+}
+
+.text-secondary {
+  color: var(--color-text-secondary);
+}
+
+.text-success {
+  color: var(--color-success);
+}
+
+.text-warning {
+  color: var(--color-warning);
+}
+
+.text-danger {
+  color: var(--color-danger);
+}
+
+.text-info {
+  color: var(--color-info);
+}
+
+.text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+:focus-visible {
+  outline: 3px solid rgba(108, 153, 155, 0.55);
+  outline-offset: 3px;
+}
+
+::selection {
+  color: var(--color-brown-dark);
+  background: var(--color-teal-light);
+}
+
+/* ============================================================
+   APP SHELL
+   ============================================================ */
+
+.shell {
+  display: flex;
+  min-height: 100vh;
+  background: transparent;
+}
+
+.sidebar {
+  position: fixed;
+  inset: 0 auto 0 0;
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  width: var(--sidebar-width);
+  min-height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  border-right: 1px solid var(--color-border);
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 5px 0 25px rgba(52, 31, 26, 0.025);
+  transition:
+    width 240ms ease,
+    transform 240ms ease;
+}
+
+.shell-collapsed .sidebar,
+.sidebar-collapsed {
+  width: var(--sidebar-collapsed);
+}
+
+.shell-main {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 100vh;
+  margin-left: var(--sidebar-width);
+  transition: margin-left 240ms ease;
+}
+
+.shell-collapsed .shell-main {
+  margin-left: var(--sidebar-collapsed);
+}
+
+.shell-content {
+  flex: 1;
+  min-width: 0;
+  padding: 0;
+}
+
+.sidebar-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 25;
+  background: rgba(52, 31, 26, 0.42);
+  backdrop-filter: blur(3px);
+  animation: nexFadeIn 180ms ease both;
+}
+
+/* ============================================================
+   ANIMATIONS
+   ============================================================ */
+
+@keyframes nexFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes nexPageEnter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes nexCardEnter {
+  from {
+    opacity: 0;
+    transform: translateY(13px) scale(0.985);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes nexFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+@keyframes nexShimmer {
+  from { background-position: 180% 0; }
+  to { background-position: -180% 0; }
+}
+
+/* ============================================================
+   DASHBOARD LAYOUT
+   ============================================================ */
+
+.dashboard-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  min-width: 0;
+  padding: clamp(18px, 2.6vw, 34px);
+  animation: nexPageEnter 420ms ease both;
+}
+
+.dashboard-page.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.dashboard-page .welcome-row {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: clamp(24px, 3vw, 36px);
+  border: 1px solid rgba(207, 225, 226, 0.95);
+  border-radius: var(--radius-xl);
+  background:
+    radial-gradient(
+      circle at 88% 12%,
+      rgba(255, 248, 231, 0.9),
+      transparent 23%
+    ),
+    radial-gradient(
+      circle at 100% 100%,
+      rgba(139, 159, 108, 0.19),
+      transparent 34%
+    ),
+    linear-gradient(
+      118deg,
+      #e1eeee 0%,
+      #f5f4e9 62%,
+      #fff8e7 100%
+    );
+  box-shadow: var(--shadow-sm);
+}
+
+.dashboard-page .welcome-row::before {
+  position: absolute;
+  top: -65px;
+  right: 8%;
+  z-index: -1;
+  width: 190px;
+  height: 190px;
+  border: 1px solid rgba(65, 110, 113, 0.13);
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 22px rgba(65, 110, 113, 0.035),
+    0 0 0 45px rgba(65, 110, 113, 0.025);
+  content: "";
+  pointer-events: none;
+}
+
+.dashboard-page .welcome-row::after {
+  position: absolute;
+  right: 12%;
+  bottom: -48px;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: rgba(201, 130, 110, 0.09);
+  content: "";
+  pointer-events: none;
+}
+
+.dashboard-page .welcome-row h1 {
+  max-width: 750px;
+  margin: 0 0 10px;
+  color: var(--color-brown-dark);
+  font-size: clamp(27px, 3vw, 37px);
+  font-weight: 800;
+  line-height: 1.22;
+  letter-spacing: -1.3px;
+}
+
+.dashboard-page .welcome-row p {
+  max-width: 520px;
+  margin: 0;
+  color: var(--color-brown-soft);
+  font-size: 15px;
+}
+
+/* ============================================================
+   DASHBOARD GRIDS
+   ============================================================ */
+
+.dashboard-page .grid {
+  display: grid;
+  width: 100%;
+  min-width: 0;
+  gap: 20px;
+}
+
+.dashboard-page .grid-stats {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.dashboard-page .grid-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.dashboard-page .grid > * {
+  min-width: 0;
+}
+
+/* ============================================================
+   METRIC CARDS
+   ============================================================ */
+
+.dashboard-page .grid-stats > * {
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid rgba(231, 225, 214, 0.9);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-sm);
+  animation: nexCardEnter 450ms ease both;
+  transition:
+    transform 220ms ease,
+    box-shadow 220ms ease,
+    border-color 220ms ease;
+}
+
+.dashboard-page .grid-stats > *:nth-child(2) {
+  animation-delay: 60ms;
+}
+
+.dashboard-page .grid-stats > *:nth-child(3) {
+  animation-delay: 120ms;
+}
+
+.dashboard-page .grid-stats > *:nth-child(4) {
+  animation-delay: 180ms;
+}
+
+.dashboard-page .grid-stats > *:hover {
+  transform: translateY(-4px);
+  border-color: var(--color-teal-light);
+  box-shadow: var(--shadow-md);
+}
+
+/* Coloured top accents for the metric tiles */
+.dashboard-page .grid-stats > *::before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 4px;
+  background: var(--color-teal);
+  content: "";
+}
+
+.dashboard-page .grid-stats > *:nth-child(4n + 2)::before {
+  background: var(--color-sage);
+}
+
+.dashboard-page .grid-stats > *:nth-child(4n + 3)::before {
+  background: var(--color-gold);
+}
+
+.dashboard-page .grid-stats > *:nth-child(4n)::before {
+  background: var(--color-coral);
+}
+
+/* Compatible styling for common StatCard patterns */
+.dashboard-page .grid-stats > * svg {
+  transition: transform 220ms ease;
+}
+
+.dashboard-page .grid-stats > *:hover svg {
+  transform: scale(1.08);
+}
+
+/* ============================================================
+   CONTENT CARDS AND CHARTS
+   ============================================================ */
+
+.dashboard-page .grid-2 > * {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-sm);
+  animation: nexCardEnter 500ms ease both;
+  transition:
+    box-shadow 220ms ease,
+    border-color 220ms ease,
+    transform 220ms ease;
+}
+
+.dashboard-page .grid-2 > *:hover {
+  border-color: #d4e3df;
+  box-shadow: var(--shadow-md);
+}
+
+.dashboard-page .grid-2 > *:nth-child(2) {
+  animation-delay: 80ms;
+}
+
+/* ============================================================
+   TABLES
+   ============================================================ */
+
+.dashboard-page table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.dashboard-page thead th {
+  padding: 13px 16px;
+  border-bottom: 1px solid var(--color-border);
+  background: #f4f7f4;
+  color: var(--color-text-secondary);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.065em;
+  text-align: left;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.dashboard-page tbody td {
+  padding: 14px 16px;
+  border-bottom: 1px solid #f0ede7;
+  color: var(--color-text-secondary);
+  font-size: 13px;
+  vertical-align: middle;
+}
+
+.dashboard-page tbody tr {
+  transition: background-color 160ms ease;
+}
+
+.dashboard-page tbody tr:hover {
+  background: #f3f8f6;
+}
+
+.dashboard-page tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* ============================================================
+   RECENT ACTIVITY
+   ============================================================ */
+
+.dashboard-page .activity-list {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.dashboard-page .activity-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  padding: 15px 18px;
+  border-bottom: 1px solid #f0ede7;
+  transition: background-color 180ms ease;
+}
+
+.dashboard-page .activity-item:last-child {
+  border-bottom: 0;
+}
+
+.dashboard-page .activity-item:hover {
+  background: #f5f8f5;
+}
+
+.dashboard-page .activity-badge {
+  display: inline-flex;
+  flex: 0 0 38px;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid #d7e7e4;
+  border-radius: 13px;
+  background: linear-gradient(145deg, #e4f0ed, #f7f4e9);
+  color: var(--color-teal-dark);
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.dashboard-page .activity-item:nth-child(3n + 2) .activity-badge {
+  border-color: #eadbc6;
+  background: #fff2dc;
+  color: #8b642d;
+}
+
+.dashboard-page .activity-item:nth-child(3n) .activity-badge {
+  border-color: #ead7d0;
+  background: #faece7;
+  color: #a35f4e;
+}
+
+.dashboard-page .activity-text {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  color: var(--color-text-primary);
+  font-size: 13px;
+  font-weight: 550;
+}
+
+.dashboard-page .activity-time {
+  flex-shrink: 0;
+  font-size: 11px;
+}
+
+/* ============================================================
+   QUICK ACTIONS
+   ============================================================ */
+
+.dashboard-page .quick-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: 12px;
+  padding: 20px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: var(--shadow-sm);
+}
+
+.dashboard-page .qa-chip {
+  display: inline-flex;
+  flex: 1 1 155px;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  min-height: 48px;
+  padding: 12px 15px;
+  border: 1px solid #d9e6e1;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #f3f8f5, #fffdf7);
+  color: var(--color-teal-dark);
+  font-size: 13px;
+  font-weight: 700;
+  text-align: center;
+  transition:
+    transform 180ms ease,
+    background 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.dashboard-page .qa-chip svg {
+  font-size: 19px;
+}
+
+.dashboard-page .qa-chip:nth-child(3n + 2) {
+  border-color: #ebdfc9;
+  background: #fff7e7;
+  color: #75502c;
+}
+
+.dashboard-page .qa-chip:nth-child(3n) {
+  border-color: #ead9d1;
+  background: #fff5f0;
+  color: #8d5548;
+}
+
+.dashboard-page .qa-chip:hover {
+  transform: translateY(-3px);
+  border-color: #b7d3ce;
+  box-shadow: 0 8px 18px rgba(65, 110, 113, 0.12);
+}
+
+.dashboard-page .qa-chip:active {
+  transform: translateY(-1px) scale(0.99);
+}
+
+/* ============================================================
+   TOPBAR
+   ============================================================ */
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-width: 0;
+  min-height: var(--topbar-height);
+  padding: 12px 26px;
+  border-bottom: 1px solid rgba(231, 225, 214, 0.95);
+  background: rgba(255, 255, 255, 0.91);
+  box-shadow: 0 3px 14px rgba(52, 31, 26, 0.035);
+  backdrop-filter: blur(14px);
+}
+
+.topbar-left,
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  min-width: 0;
+}
+
+.topbar-right {
+  justify-content: flex-end;
+}
+
+.topbar-center {
+  flex: 1;
+  min-width: 0;
+  max-width: 540px;
+}
+
+.topbar-tenant {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  color: var(--color-brown-dark);
+  font-weight: 700;
+}
+
+.topbar-profile {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  max-width: 230px;
+  padding: 7px 10px;
+  border: 1px solid transparent;
+  border-radius: 13px;
+  background: transparent;
+  text-align: left;
+  transition:
+    background 180ms ease,
+    border-color 180ms ease;
+}
+
+.topbar-profile:hover {
+  border-color: var(--color-border);
+  background: #f7f6f0;
+}
+
+.topbar-profile-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  line-height: 1.4;
+}
+
+.topbar-profile-text strong {
+  color: var(--color-brown-dark);
+  font-size: 12px;
+}
+
+.topbar-profile-text small {
+  color: var(--color-text-muted);
+  font-size: 11px;
+}
+
+.topbar-hamburger {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  padding: 9px;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  background: #fff;
+  transition:
+    background 180ms ease,
+    border-color 180ms ease,
+    transform 180ms ease;
+}
+
+.topbar-hamburger:hover {
+  transform: translateY(-1px);
+  border-color: var(--color-teal-light);
+  background: var(--color-surface-alt);
+}
+
+.topbar-hamburger span {
+  display: block;
+  width: 18px;
+  height: 2px;
+  border-radius: 3px;
+  background: var(--color-brown-soft);
+}
+
+/* ============================================================
+   SIDEBAR BRAND
+   ============================================================ */
+
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 78px;
+  padding: 18px;
+  border-bottom: 1px solid #f0ede7;
+  color: var(--color-brown-dark);
+}
+
+.sidebar-brand:hover {
+  text-decoration: none;
+}
+
+.brand-mark {
+  display: flex;
+  flex: 0 0 43px;
+  align-items: center;
+  justify-content: center;
+  width: 43px;
+  height: 43px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 14px;
+  background: linear-gradient(145deg, #6c999b, #416e71);
+  box-shadow: 0 6px 15px rgba(65, 110, 113, 0.22);
+  color: #fff8e7;
+  font-size: 23px;
+  transition:
+    transform 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.sidebar-brand:hover .brand-mark {
+  transform: rotate(-5deg) scale(1.05);
+  box-shadow: 0 9px 20px rgba(65, 110, 113, 0.27);
+}
+
+.sidebar-brand-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  line-height: 1.35;
+}
+
+.sidebar-brand-text strong {
+  color: var(--color-brown-dark);
+  font-size: 19px;
+  font-weight: 850;
+  letter-spacing: -0.7px;
+}
+
+.sidebar-brand-text small {
+  margin-top: 3px;
+  color: var(--color-text-muted);
+  font-size: 11px;
+}
+
+/* ============================================================
+   SIDEBAR NAVIGATION
+   ============================================================ */
+
+.sidebar-nav {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 22px;
+  padding: 20px 12px;
+}
+
+.nav-section-title {
+  margin: 0 0 9px;
+  padding: 0 12px;
+  color: #9b9186;
+  font-size: 10px;
+  font-weight: 850;
+  letter-spacing: 1.3px;
+  text-transform: uppercase;
+}
+
+.nav-section-items {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.nav-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 45px;
+  padding: 10px 12px;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  color: #796e68;
+  font-size: 13px;
+  font-weight: 600;
+  transition:
+    color 180ms ease,
+    background 180ms ease,
+    border-color 180ms ease,
+    transform 180ms ease;
+}
+
+.nav-link:hover {
+  transform: translateX(2px);
+  background: #f4f7f3;
+  color: var(--color-teal-dark);
+}
+
+.nav-link-active {
+  border-color: #d8e7e2;
+  background: linear-gradient(100deg, #e7f1ee, #f5f6ed);
+  color: var(--color-teal-dark);
+  font-weight: 800;
+}
+
+.nav-link-active::before {
+  position: absolute;
+  top: 9px;
+  bottom: 9px;
+  left: -1px;
+  width: 3px;
+  border-radius: 0 5px 5px 0;
+  background: var(--color-teal-dark);
+  content: "";
+}
+
+.nav-icon {
+  flex-shrink: 0;
+  font-size: 20px;
+  transition: transform 180ms ease;
+}
+
+.nav-link:hover .nav-icon {
+  transform: scale(1.08);
+}
+
+.nav-label {
+  flex: 1;
+  min-width: 0;
+}
+
+.nav-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 22px;
+  min-height: 22px;
+  padding: 2px 6px;
+  border-radius: 7px;
+  background: #f7e9d2;
+  color: #795b30;
+  font-size: 10px;
+  font-weight: 850;
+}
+
+.nav-link-collapsed {
+  justify-content: center;
+  padding-inline: 8px;
+}
+
+/* ============================================================
+   SIDEBAR PROFILE
+   ============================================================ */
+
+.sidebar-footer {
+  position: relative;
+  margin-top: auto;
+  padding: 12px;
+  border-top: 1px solid #f0ede7;
+}
+
+.sidebar-profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  padding: 10px;
+  border: 1px solid transparent;
+  border-radius: 13px;
+  cursor: pointer;
+  transition:
+    background 180ms ease,
+    border-color 180ms ease;
+}
+
+.sidebar-profile:hover {
+  border-color: var(--color-border);
+  background: #f8f6ef;
+}
+
+.sidebar-profile-text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+  line-height: 1.4;
+}
+
+.sidebar-profile-text strong {
+  color: var(--color-brown-dark);
+  font-size: 12px;
+}
+
+.sidebar-profile-text small {
+  color: var(--color-text-muted);
+  font-size: 11px;
+}
+
+.sidebar-caret {
+  flex-shrink: 0;
+  color: var(--color-text-muted);
+  transition: transform 180ms ease;
+}
+
+.sidebar-caret.rotated {
+  transform: rotate(180deg);
+}
+
+.sidebar-profile-menu {
+  position: absolute;
+  right: 12px;
+  bottom: calc(100% + 8px);
+  left: 12px;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px;
+  border: 1px solid var(--color-border);
+  border-radius: 15px;
+  background: #fff;
+  box-shadow: var(--shadow-lg);
+  animation: nexPageEnter 180ms ease both;
+}
+
+.sidebar-profile-menu a,
+.sidebar-profile-menu button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 11px 12px;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  color: var(--color-text-secondary);
+  font-size: 13px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.sidebar-profile-menu a:hover,
+.sidebar-profile-menu button:hover {
+  background: var(--color-surface-alt);
+  color: var(--color-teal-dark);
+}
+
+.sidebar-profile-menu button {
+  color: var(--color-danger);
+}
+
+.sidebar-logout-icon,
+.collapse-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--color-border);
+  border-radius: 11px;
+  background: #fff;
+  color: var(--color-text-secondary);
+  transition:
+    background 180ms ease,
+    color 180ms ease,
+    border-color 180ms ease;
+}
+
+.sidebar-logout-icon:hover,
+.collapse-btn:hover {
+  border-color: var(--color-teal-light);
+  background: var(--color-surface-alt);
+  color: var(--color-teal-dark);
+}
+
+/* ============================================================
+   BUTTONS, INPUTS AND DROPDOWNS
+   ============================================================ */
+
+button:not(.topbar-hamburger):not(.topbar-profile):not(.sidebar-profile-menu button) {
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+input,
+select,
+textarea {
+  max-width: 100%;
+  border-color: var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--color-teal);
+  outline: 3px solid rgba(108, 153, 155, 0.15);
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* ============================================================
+   SCROLLBARS
+   ============================================================ */
+
+::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  border: 2px solid var(--color-background);
+  border-radius: 10px;
+  background: #c9d8d3;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #91b2aa;
+}
+
+/* ============================================================
+   RESPONSIVE LAYOUT
+   ============================================================ */
+
+@media (max-width: 1100px) {
+  .dashboard-page .grid-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .topbar {
+    padding-inline: 17px;
+  }
+}
+
+@media (max-width: 900px) {
+  .sidebar {
+    width: min(var(--sidebar-width), 85vw);
+    transform: translateX(-105%);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .sidebar.sidebar-mobile-open {
+    transform: translateX(0);
+  }
+
+  .shell-collapsed .sidebar {
+    width: min(var(--sidebar-width), 85vw);
+  }
+
+  .shell-main,
+  .shell-collapsed .shell-main {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .shell-collapsed .sidebar .sidebar-brand-text,
+  .shell-collapsed .sidebar .nav-section-title,
+  .shell-collapsed .sidebar .nav-label,
+  .shell-collapsed .sidebar .nav-badge,
+  .shell-collapsed .sidebar .sidebar-profile-text,
+  .shell-collapsed .sidebar .sidebar-caret {
+    display: initial;
+  }
+
+  .shell-collapsed .sidebar .nav-link {
+    justify-content: flex-start;
+  }
+
+  .shell-collapsed .sidebar .nav-section-title {
+    display: block;
+  }
+
+  .shell-collapsed .sidebar .sidebar-brand-text,
+  .shell-collapsed .sidebar .nav-label,
+  .shell-collapsed .sidebar .sidebar-profile-text {
+    display: flex;
+  }
+
+  .shell-collapsed .sidebar .nav-badge {
+    display: inline-flex;
+  }
+
+  .shell-collapsed .sidebar .sidebar-caret {
+    display: block;
+  }
+
+  .dashboard-page {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 760px) {
+  .dashboard-page,
+  .dashboard-page.stack {
+    gap: 18px;
+    padding: 15px;
+  }
+
+  .dashboard-page .grid-2 {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .dashboard-page .welcome-row {
+    padding: 24px 20px;
+  }
+
+  .dashboard-page .welcome-row h1 {
+    font-size: 27px;
+  }
+
+  .topbar {
+    flex-wrap: wrap;
+    gap: 10px;
+    min-height: 62px;
+    padding: 10px 13px;
+  }
+
+  .topbar-left {
+    flex: 1;
+  }
+
+  .topbar-center {
+    order: 3;
+    flex: 1 0 100%;
+    max-width: none;
+  }
+
+  .topbar-profile-text {
+    display: none;
+  }
+
+  .topbar-profile {
+    padding: 6px;
+  }
+
+  .dashboard-page .quick-actions {
+    gap: 9px;
+    padding: 13px;
+  }
+
+  .dashboard-page .qa-chip {
+    flex-basis: calc(50% - 6px);
+    padding-inline: 9px;
+  }
+
+  .dashboard-page .activity-item {
+    flex-wrap: wrap;
+  }
+
+  .dashboard-page .activity-time {
+    margin-left: 49px;
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard-page .grid-stats {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .dashboard-page .qa-chip {
+    flex-basis: 100%;
+  }
+
+  .dashboard-page .welcome-row::before {
+    right: -75px;
+  }
+
+  .dashboard-page th,
+  .dashboard-page td {
+    padding: 10px 8px;
+    font-size: 11px;
+  }
+
+  .dashboard-page .activity-item {
+    gap: 9px;
+  }
+
+  .topbar-left,
+  .topbar-right {
+    gap: 8px;
+  }
+}
+
+/* ============================================================
+   ACCESSIBILITY
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ============================================================
+   NEX-IV — SPACING, TEXT VISIBILITY & CONTRAST FIXES
+   Add this block at the VERY BOTTOM of your CSS file.
+   ============================================================ */
+
+/* 1. Prevent padding and width from pushing content outside */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+.shell,
+.shell-main,
+.shell-content,
+.dashboard-page,
+.dashboard-page .grid,
+.dashboard-page .grid > *,
+.dashboard-page .grid-stats > *,
+.dashboard-page .grid-2 > * {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.shell-content {
+  overflow-x: hidden;
+}
+
+.dashboard-page {
+  width: 100%;
+  padding: clamp(20px, 3vw, 38px);
+  gap: 28px;
+}
+
+/* 2. Give headings and paragraphs breathing room */
+.dashboard-page h1,
+.dashboard-page h2,
+.dashboard-page h3,
+.dashboard-page h4 {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  line-height: 1.4;
+}
+
+.dashboard-page p {
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+
+.dashboard-page .welcome-row {
+  padding: clamp(26px, 3.5vw, 42px);
+  margin-bottom: 2px;
+}
+
+.dashboard-page .welcome-row h1 {
+  margin-bottom: 12px;
+  line-height: 1.35;
+  overflow-wrap: break-word;
+}
+
+.dashboard-page .welcome-row p {
+  line-height: 1.75;
+}
+
+/* 3. Add consistent padding inside dashboard cards */
+.dashboard-page .grid-stats > *,
+.dashboard-page .grid-2 > * {
+  padding: 22px;
+}
+
+.dashboard-page .grid-stats {
+  gap: 22px;
+}
+
+.dashboard-page .grid-2 {
+  gap: 24px;
+}
+
+/* Keep card contents away from the card edges */
+.dashboard-page .grid-stats > * > *,
+.dashboard-page .grid-2 > * > * {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.dashboard-page .grid-stats h2,
+.dashboard-page .grid-stats h3,
+.dashboard-page .grid-2 h2,
+.dashboard-page .grid-2 h3 {
+  margin-bottom: 12px;
+  overflow-wrap: anywhere;
+}
+
+/* 4. Separate icon boxes from their text */
+.dashboard-page .grid-stats > * svg,
+.dashboard-page .grid-stats > * .stat-icon,
+.dashboard-page .grid-stats > * .stat-card-icon,
+.dashboard-page .grid-stats > * .icon-box {
+  flex-shrink: 0;
+  margin-right: 14px;
+}
+
+/* Support common icon-and-label layouts */
+.dashboard-page .grid-stats > * [class*="icon"],
+.dashboard-page .grid-2 > * [class*="icon"] {
+  flex-shrink: 0;
+}
+
+/* Any horizontal icon + text row should have a proper gap */
+.dashboard-page .grid-stats > * .stat-header,
+.dashboard-page .grid-stats > * .stat-card-header,
+.dashboard-page .grid-stats > * .card-header,
+.dashboard-page .grid-2 > * .card-header,
+.dashboard-page .grid-2 > * .section-header {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  min-width: 0;
+  margin-bottom: 16px;
+}
+
+/* Avoid labels touching coloured icon backgrounds */
+.dashboard-page .grid-stats > * .stat-label,
+.dashboard-page .grid-stats > * .stat-title,
+.dashboard-page .grid-stats > * .card-title {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  line-height: 1.6;
+}
+
+/* 5. Improve icon spacing in quick-action buttons */
+.dashboard-page .qa-chip {
+  gap: 12px;
+  padding: 14px 18px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.dashboard-page .qa-chip svg,
+.dashboard-page .qa-chip > span:first-child {
+  flex: 0 0 auto;
+  margin-right: 2px;
+}
+
+/* 6. Improve sidebar label spacing and prevent clipping */
+.sidebar {
+  padding-bottom: 8px;
+}
+
+.sidebar-brand {
+  gap: 15px;
+  padding: 18px 20px;
+}
+
+.sidebar-brand-text {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.sidebar-brand-text strong,
+.sidebar-brand-text small {
+  overflow-wrap: anywhere;
+}
+
+.sidebar-nav {
+  padding: 22px 14px;
+  gap: 24px;
+}
+
+.nav-section-title {
+  padding-inline: 13px;
+  line-height: 1.6;
+}
+
+.nav-section-items {
+  gap: 7px;
+}
+
+.nav-link {
+  gap: 15px;
+  min-height: 48px;
+  padding: 12px 14px;
+  line-height: 1.5;
+}
+
+.nav-icon {
+  display: inline-flex;
+  flex: 0 0 22px;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  margin-right: 1px;
+}
+
+.nav-label {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  white-space: normal;
+  line-height: 1.5;
+}
+
+.nav-badge {
+  flex-shrink: 0;
+  margin-left: 4px;
+}
+
+/* 7. Fix the collapsed sidebar without squeezing the icons */
+.shell-collapsed .nav-link {
+  gap: 0;
+  justify-content: center;
+  padding-inline: 8px;
+}
+
+.shell-collapsed .nav-icon {
+  margin: 0;
+}
+
+.shell-collapsed .sidebar-brand {
+  justify-content: center;
+  padding-inline: 10px;
+}
+
+/* 8. Give the topbar enough room */
+.topbar {
+  gap: 18px;
+  padding: 14px clamp(16px, 2.5vw, 32px);
+}
+
+.topbar-left,
+.topbar-right {
+  gap: 14px;
+}
+
+.topbar-tenant {
+  gap: 12px;
+}
+
+.topbar-tenant-name,
+.topbar-profile-text strong,
+.topbar-profile-text small {
+  overflow-wrap: anywhere;
+}
+
+.topbar-profile {
+  gap: 12px;
+  padding: 9px 12px;
+}
+
+/* 9. Improve text contrast on dark backgrounds */
+[style*="background: #341f1a"],
+[style*="background:#341f1a"],
+[style*="background: var(--color-brown-dark)"],
+[style*="background-color: var(--color-brown-dark)"],
+.bg-dark,
+.dark-card,
+.dark-panel,
+.sidebar-dark,
+.topbar-dark {
+  color: #fff8e7;
+}
+
+[style*="background: #341f1a"] h1,
+[style*="background: #341f1a"] h2,
+[style*="background: #341f1a"] h3,
+[style*="background: #341f1a"] p,
+[style*="background: #341f1a"] span,
+[style*="background: #341f1a"] strong,
+[style*="background: var(--color-brown-dark)"] h1,
+[style*="background: var(--color-brown-dark)"] h2,
+[style*="background: var(--color-brown-dark)"] h3,
+[style*="background: var(--color-brown-dark)"] p,
+[style*="background: var(--color-brown-dark)"] span,
+[style*="background: var(--color-brown-dark)"] strong,
+.bg-dark h1,
+.bg-dark h2,
+.bg-dark h3,
+.bg-dark p,
+.bg-dark span,
+.bg-dark strong,
+.dark-card h1,
+.dark-card h2,
+.dark-card h3,
+.dark-card p,
+.dark-card span,
+.dark-card strong,
+.dark-panel h1,
+.dark-panel h2,
+.dark-panel h3,
+.dark-panel p,
+.dark-panel span,
+.dark-panel strong {
+  color: #fff8e7;
+}
+
+/* Dark surfaces: muted text must remain readable */
+.bg-dark .muted,
+.dark-card .muted,
+.dark-panel .muted,
+.sidebar-dark .muted,
+.topbar-dark .muted {
+  color: #e0d6c9;
+}
+
+/* Buttons with dark backgrounds need visible labels */
+button.bg-dark,
+a.bg-dark,
+.dark-button {
+  background: #341f1a;
+  color: #fff8e7;
+}
+
+button.bg-dark:hover,
+a.bg-dark:hover,
+.dark-button:hover {
+  background: #49302a;
+  color: #ffffff;
+}
+
+/* 10. Make table content less cramped */
+.dashboard-page table {
+  width: 100%;
+  table-layout: auto;
+}
+
+.dashboard-page thead th {
+  padding: 15px 18px;
+  line-height: 1.5;
+}
+
+.dashboard-page tbody td {
+  padding: 16px 18px;
+  line-height: 1.65;
+  overflow-wrap: anywhere;
+}
+
+/* Keep tables usable on narrow screens */
+.dashboard-page .grid-2 > * {
+  overflow-x: auto;
+}
+
+.dashboard-page table {
+  min-width: 460px;
+}
+
+/* 11. Give activity items clear separation */
+.dashboard-page .activity-item {
+  gap: 15px;
+  padding: 17px 20px;
+}
+
+.dashboard-page .activity-badge {
+  flex: 0 0 42px;
+  width: 42px;
+  height: 42px;
+  margin-right: 2px;
+}
+
+.dashboard-page .activity-text {
+  line-height: 1.65;
+}
+
+.dashboard-page .activity-time {
+  color: #71635d;
+  line-height: 1.5;
+}
+
+/* 12. Responsive spacing */
+@media (max-width: 900px) {
+  .dashboard-page {
+    padding: 22px;
+    gap: 22px;
+  }
+
+  .dashboard-page .grid-stats,
+  .dashboard-page .grid-2 {
+    gap: 18px;
+  }
+
+  .dashboard-page .grid-stats > *,
+  .dashboard-page .grid-2 > * {
+    padding: 19px;
+  }
+}
+
+@media (max-width: 600px) {
+  .dashboard-page {
+    padding: 14px;
+    gap: 18px;
+  }
+
+  .dashboard-page .welcome-row {
+    padding: 22px 18px;
+  }
+
+  .dashboard-page .grid-stats > *,
+  .dashboard-page .grid-2 > * {
+    padding: 17px;
+  }
+
+  .dashboard-page .grid-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .dashboard-page .grid-2 {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  .dashboard-page .qa-chip {
+    gap: 10px;
+    padding: 12px;
+  }
+
+  .sidebar-nav {
+    padding-inline: 12px;
+  }
+
+  .nav-link {
+    gap: 13px;
+    padding-inline: 12px;
+  }
+
+  .topbar {
+    padding: 10px 12px;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 380px) {
+  .dashboard-page .grid-stats {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .dashboard-page .welcome-row h1 {
+    font-size: 25px;
+    letter-spacing: -0.5px;
+  }
+
+  .topbar-tenant-name {
+    max-width: 130px;
+  }
+}
+
+/* ============================================================
+   NEX-IV — BRAND VISIBILITY, FIXED TOPBAR & NOTIFICATIONS
+   ============================================================ */
+
+/* 1. Make the Nex brand name stand out */
+.sidebar .sidebar-brand-text strong {
+  color: #24585a !important;
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: -0.6px;
+  line-height: 1.3;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+.sidebar .sidebar-brand-text small {
+  color: #5d7775 !important;
+  font-weight: 600;
+}
+
+.sidebar .sidebar-brand {
+  position: relative;
+  z-index: 2;
+  flex-shrink: 0;
+  background: #ffffff;
+}
+
+/* 2. Keep the top bar fixed while scrolling */
+.topbar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: var(--sidebar-width);
+  z-index: 1000;
+  width: auto;
+  min-height: var(--topbar-height);
+  background: rgba(255, 255, 255, 0.97);
+  border-bottom: 1px solid var(--color-border);
+  box-shadow: 0 4px 18px rgba(52, 31, 26, 0.08);
+  backdrop-filter: blur(16px);
+}
+
+/* Adjust the fixed bar when the desktop sidebar is collapsed */
+.shell-collapsed .topbar {
+  left: var(--sidebar-collapsed);
+}
+
+/* Leave space for the fixed top bar */
+.shell-main {
+  min-width: 0;
+}
+
+.shell-content {
+  padding-top: var(--topbar-height);
+}
+
+/* Ensure the mobile layout uses the full available width */
+@media (max-width: 900px) {
+  .topbar,
+  .shell-collapsed .topbar {
+    left: 0;
+    right: 0;
+  }
+
+  .shell-content {
+    padding-top: var(--topbar-height);
+  }
+}
+
+/* If the topbar becomes taller on mobile due to wrapping */
+@media (max-width: 760px) {
+  .topbar {
+    min-height: 62px;
+  }
+
+  .shell-content {
+    padding-top: 62px;
+  }
+}
+
+/* 3. Place notification dropdowns above cards and page content */
+.notification-wrapper,
+.notification-container,
+.notification-dropdown-wrapper {
+  position: relative;
+  z-index: 1100;
+}
+
+.notification-dropdown,
+.notification-panel,
+.notification-menu,
+.notifications-popover,
+.notifications-dropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  z-index: 1200;
+  max-width: min(380px, calc(100vw - 24px));
+  max-height: min(70vh, 520px);
+  overflow-x: hidden;
+  overflow-y: auto;
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  background: #ffffff;
+  color: var(--color-text-primary);
+  box-shadow: 0 18px 45px rgba(52, 31, 26, 0.18);
+  isolation: isolate;
+}
+
+/* Keep notification text readable */
+.notification-dropdown h1,
+.notification-dropdown h2,
+.notification-dropdown h3,
+.notification-panel h1,
+.notification-panel h2,
+.notification-panel h3,
+.notification-menu h1,
+.notification-menu h2,
+.notification-menu h3,
+.notifications-popover h1,
+.notifications-popover h2,
+.notifications-popover h3 {
+  color: #341f1a;
+}
+
+.notification-dropdown p,
+.notification-dropdown span,
+.notification-panel p,
+.notification-panel span,
+.notification-menu p,
+.notification-menu span,
+.notifications-popover p,
+.notifications-popover span {
+  overflow-wrap: anywhere;
+}
+
+/* Notification items */
+.notification-item,
+.notification-row,
+.notification-entry {
+  padding: 13px 16px;
+  border-bottom: 1px solid #eee8df;
+  background: #ffffff;
+  color: #341f1a;
+}
+
+.notification-item:hover,
+.notification-row:hover,
+.notification-entry:hover {
+  background: #edf4f2;
+}
+
+.notification-item:last-child,
+.notification-row:last-child,
+.notification-entry:last-child {
+  border-bottom: 0;
+}
+
+/* Keep notification triggers above surrounding content */
+.notification-trigger,
+.notification-button,
+.notifications-button {
+  position: relative;
+  z-index: 1201;
+}
+
+/* 4. Avoid clipping dropdowns inside the topbar */
+.topbar,
+.topbar-right,
+.topbar-left {
+  overflow: visible;
+}
+
+/* Keep the topbar content above the page, but allow dropdowns to escape */
+.topbar {
+  isolation: auto;
+}
+
+/* Sign-in and authentication card spacing */
+.auth-card {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 32px;
+}
+
+/* Comfortable spacing on tablets and mobile phones */
+@media (max-width: 768px) {
+  .auth-card {
+    padding: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .auth-card {
+    padding: 22px;
+  }
+}
+
+/* =========================================================
+   NEX — AUTHENTICATION CARD SPACING
+   ========================================================= */
+
+.auth-card {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+
+/* Heading and subtitle */
+.auth-card-header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+}
+
+.auth-card-header h1 {
+  margin: 0;
+  line-height: 1.2;
+}
+
+.auth-card-header p {
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* Form layout */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+}
+
+/* Keep each label, input, and error message together */
+.auth-form > * {
+  min-width: 0;
+}
+
+.auth-form input,
+.auth-form select,
+.auth-form textarea {
+  width: 100%;
+}
+
+/* Remember me and forgot password */
+.auth-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 0;
+}
+
+/* Account-type picker on the sign-up page */
+.auth-account-types {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  width: 100%;
+  margin: 0;
+}
+
+.auth-account-type {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  width: 100%;
+  min-width: 0;
+  padding: 14px 14px;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+  text-align: left;
+  cursor: pointer;
+  transition:
+    border-color 180ms ease,
+    background-color 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease;
+}
+
+.auth-account-type svg {
+  flex-shrink: 0;
+  margin-top: 1px;
+  font-size: 22px;
+  color: var(--color-teal-dark);
+}
+
+.auth-account-type span {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.auth-account-type strong {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.auth-account-type small {
+  color: var(--color-text-secondary);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.auth-account-type:hover {
+  border-color: var(--color-teal-light);
+  background: #f7fbfa;
+}
+
+.auth-account-type-active {
+  border-color: var(--color-teal-dark);
+  background: #eef6f5;
+  box-shadow: 0 0 0 3px rgba(65, 110, 113, 0.12);
+}
+
+.auth-account-type-active svg {
+  color: var(--color-teal-dark);
+}
+
+/* Small helper text inside the auth form */
+.auth-hint {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: -4px 0 0;
+  color: var(--color-text-secondary);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.auth-hint svg {
+  flex-shrink: 0;
+  color: var(--color-teal-dark);
+}
+
+/* Sign-in button */
+.auth-form button[type="submit"] {
+  min-height: 48px;
+  margin-top: 2px;
+}
+
+/* Demo account section */
+.auth-demo {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+}
+
+.auth-demo-title {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin: 0;
+  font-weight: 650;
+}
+
+.auth-demo-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  width: 100%;
+}
+
+.auth-demo-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 7px;
+  width: 100%;
+  min-width: 0;
+  min-height: 76px;
+  padding: 13px 14px;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+  text-align: left;
+  cursor: pointer;
+  transition:
+    border-color 180ms ease,
+    background-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.auth-demo-item:hover {
+  border-color: var(--color-teal-light);
+  background: #f7fbfa;
+}
+
+.auth-demo-item-active {
+  border-color: var(--color-teal-dark);
+  background: #eef6f5;
+  box-shadow: 0 0 0 3px rgba(65, 110, 113, 0.12);
+}
+
+.auth-demo-label {
+  font-weight: 650;
+  line-height: 1.4;
+}
+
+.auth-demo-mail {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  max-width: 100%;
+  color: var(--color-text-secondary);
+  font-size: 0.78rem;
+  overflow-wrap: anywhere;
+}
+
+/* Footer */
+.auth-card-foot {
+  margin: 0;
+  padding-top: 18px;
+  border-top: 1px solid var(--border);
+  text-align: center;
+  line-height: 1.7;
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+  .auth-card {
+    padding: 28px;
+    gap: 23px;
+  }
+
+  .auth-form {
+    gap: 19px;
+  }
+
+  .auth-demo-list {
+    gap: 10px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .auth-card {
+    padding: 22px;
+    gap: 21px;
+  }
+
+  .auth-form {
+    gap: 18px;
+  }
+
+  .auth-account-types {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .auth-row {
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .auth-demo-list {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+  }
+
+  .auth-demo-item {
+    min-height: 68px;
+    padding: 12px;
+  }
+
+  .auth-card-foot {
+    padding-top: 15px;
+  }
+}
+
+/* =========================================================
+   NEX — MOBILE SIDEBAR OVERLAY
+   Keep the sidebar above the topbar and page content.
+   ========================================================= */
+
+@media (max-width: 900px) {
+  .shell {
+    position: relative;
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+
+  .shell .sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1001;
+
+    display: flex;
+    flex-direction: column;
+
+    width: min(300px, 86vw);
+    height: 100vh;
+    height: 100dvh;
+    max-height: 100dvh;
+
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+
+    background: #ffffff;
+    box-shadow: 12px 0 35px rgba(15, 23, 42, 0.14);
+
+    transform: translateX(-105%);
+    visibility: hidden;
+    pointer-events: none;
+
+    transition:
+      transform 260ms ease,
+      visibility 260ms ease;
+  }
+
+  /* Open the sidebar above the entire application */
+  .shell .sidebar.sidebar-mobile-open {
+    transform: translateX(0);
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  /* Dark overlay covers the topbar and page content */
+  .shell .sidebar-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+
+    display: block;
+    background: rgba(15, 23, 42, 0.55);
+    -webkit-backdrop-filter: blur(2px);
+    backdrop-filter: blur(2px);
+
+    cursor: pointer;
+    animation: nexBackdropIn 180ms ease-out both;
+  }
+
+  /* The page remains underneath the overlay */
+  .shell .shell-main {
+    position: relative;
+    min-width: 0;
+    width: 100%;
+  }
+
+  .shell .topbar {
+    z-index: 5;
+  }
+
+  /* Let navigation occupy available sidebar space */
+  .shell .sidebar-nav {
+    flex: 1 0 auto;
+  }
+
+  .shell .sidebar-footer {
+    flex-shrink: 0;
+    margin-top: auto;
+    background: #ffffff;
+  }
+}
+
+@keyframes nexBackdropIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .shell .sidebar,
+  .shell .sidebar-backdrop {
+    animation: none;
+    transition: none;
+  }
+}
+
+
+/* MOBILE SIDEBAR: SHOW ALL MENU ITEMS */
+@media (max-width: 900px) {
+  .shell .sidebar.sidebar-mobile-open {
+    width: min(300px, 86vw);
+    max-width: 86vw;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Show every section heading */
+  .shell .sidebar .nav-section-title {
+    display: block;
+  }
+
+  /* Keep navigation labels and badges visible */
+  .shell .sidebar .nav-link {
+    width: 100%;
+    min-height: 44px;
+    box-sizing: border-box;
+    justify-content: flex-start;
+    gap: 12px;
+    padding: 11px 16px;
+  }
+
+  .shell .sidebar .nav-label {
+    display: inline;
+    flex: 1;
+    min-width: 0;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  .shell .sidebar .nav-badge {
+    display: inline-flex;
+    flex-shrink: 0;
+  }
+
+  .shell .sidebar .nav-section-items {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  /* Keep the account details and footer available */
+  .shell .sidebar .sidebar-footer {
+    position: relative;
+    display: block;
+    flex-shrink: 0;
+    margin-top: auto;
+    padding-bottom: max(16px, env(safe-area-inset-bottom));
+    background: #fff;
+  }
+
+  .shell .sidebar .sidebar-profile {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .shell .sidebar .sidebar-profile-text {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  .shell .sidebar .sidebar-profile-menu {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 900px) {
+  .shell .sidebar.sidebar-mobile-open {
+    position: fixed !important;
+    inset: 0 auto 0 0;
+    width: min(300px, 86vw) !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+    max-height: 100dvh !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    box-sizing: border-box;
+    z-index: 1001 !important;
+    background: #fff;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .shell .sidebar.sidebar-mobile-open .sidebar-brand {
+    flex-shrink: 0;
+  }
+
+  .shell .sidebar.sidebar-mobile-open .sidebar-nav {
+    display: block !important;
+    flex: 0 0 auto !important;
+    width: 100%;
+    min-height: auto !important;
+    max-height: none !important;
+    height: auto !important;
+    overflow: visible !important;
+    padding-bottom: 20px;
+  }
+
+  .shell .sidebar.sidebar-mobile-open .nav-section {
+    display: block !important;
+    width: 100%;
+  }
+
+  .shell .sidebar.sidebar-mobile-open .nav-section-title {
+    display: block !important;
+  }
+
+  .shell .sidebar.sidebar-mobile-open .nav-section-items {
+    display: flex !important;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .shell .sidebar.sidebar-mobile-open .nav-link {
+    display: flex !important;
+    width: 100%;
+    min-height: 46px;
+    height: auto;
+    justify-content: flex-start;
+    box-sizing: border-box;
+    gap: 12px;
+  }
+
+  .shell .sidebar.sidebar-mobile-open .nav-label {
+    display: inline !important;
+    flex: 1;
+    min-width: 0;
+    white-space: normal;
+  }
+
+  .shell .sidebar.sidebar-mobile-open .sidebar-footer {
+    display: block !important;
+    position: relative;
+    flex: 0 0 auto;
+    margin-top: 0;
+    padding-bottom: max(20px, env(safe-area-inset-bottom));
+  }
+}
+
+/* Improve sidebar text readability */
+.shell .sidebar {
+  color: #606772;
+}
+
+.shell .sidebar .sidebar-brand strong,
+.shell .sidebar .sidebar-brand small,
+.shell .sidebar .nav-section-title,
+.shell .sidebar .nav-label,
+.shell .sidebar .sidebar-profile-text strong,
+.shell .sidebar .sidebar-profile-text small {
+  color: #fff !important;
+  opacity: 1 !important;
+}
+
+/* Make navigation icons clearly visible */
+.shell .sidebar .nav-icon {
+  color: #fff !important;
+  opacity: 1 !important;
+}
+
+/* Section headings */
+.shell .sidebar .nav-section-title {
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+/* Improve link readability */
+.shell .sidebar .nav-link {
+  color: #fff !important;
+  font-weight: 500;
+  opacity: 1 !important;
+}
+
+/* Highlight the active page */
+.shell .sidebar .nav-link.nav-link-active {
+  color: #0f7a4a !important;
+  background: #e8f5ed !important;
+  font-weight: 700;
+}
+
+.shell .sidebar .nav-link.nav-link-active .nav-icon,
+.shell .sidebar .nav-link.nav-link-active .nav-label {
+  color: #0f7a4a !important;
+}
+
+/* Make profile menu options readable */
+.shell .sidebar .sidebar-profile-menu a,
+.shell .sidebar .sidebar-profile-menu button {
+  color: #1e293b !important;
+  font-weight: 500;
+  opacity: 1 !important;
+}
+
+/* Ensure the mobile sidebar keeps strong contrast */
+@media (max-width: 900px) {
+  .shell .sidebar.sidebar-mobile-open {
+    color: #606772;
+    background: #ffffff;
+  }
+
+  .shell .sidebar.sidebar-mobile-open .nav-label,
+  .shell .sidebar.sidebar-mobile-open .nav-section-title {
+    color: #606772 !important;
+    opacity: 1 !important;
+  }
+}
+.shell .sidebar .sidebar-brand strong,
+.shell .sidebar .sidebar-brand small {
+  color: #ffffff !important;
+}
+
+/* Keep the NEX brand title white on desktop and mobile */
+.shell .sidebar .sidebar-brand strong {
+  color: #ffffff !important;
+}
+
+/* Keep the subtitle white too, if present */
+.shell .sidebar .sidebar-brand small {
+  color: #ffffff !important;
+}

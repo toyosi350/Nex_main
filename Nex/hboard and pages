@@ -1,0 +1,12 @@
+warning: in the working copy of 'src/app/store.js', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/components/table/ListPage.jsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/features/dashboard/DashboardPage.jsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/features/finance/FinanceOverviewPage.jsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/features/finance/PayablesPage.jsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/features/finance/ReceivablesPage.jsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/features/hr/AttendancePage.jsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/features/hr/DepartmentPage.jsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/features/reports/ReportCenterPage.jsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/index.css', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/styles/app.css', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/styles/index.css', LF will be replaced by CRLF the next time Git touches it

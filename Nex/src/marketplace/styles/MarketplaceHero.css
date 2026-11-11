@@ -1,0 +1,259 @@
+.marketplace-hero {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  height: 650px;
+  min-height: 500px;
+  overflow: hidden;
+  border-radius: 0;
+  background: #FFF8E7;
+  color: #341F1A;
+}
+
+.hero-image-track {
+  position: absolute;
+  z-index: -3;
+  inset: 0;
+  display: flex;
+  width: max-content;
+  height: 100%;
+  animation: marketplaceImageScroll 45s linear infinite;
+  will-change: transform;
+}
+
+.hero-image-tile {
+  position: relative;
+  flex: 0 0 34vw;
+  min-width: 340px;
+  max-width: 560px;
+  height: 100%;
+  overflow: hidden;
+}
+
+.hero-image-tile img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: saturate(0.78);
+  transform: scale(1.03);
+  transition: transform 800ms ease;
+}
+@keyframes marketplaceImageScroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marketplace-hero-overlay {
+  position: absolute;
+  z-index: -2;
+  inset: 0;
+  background:
+    linear-gradient(
+      90deg,
+      #FFF8E7 0%,
+      rgba(255, 248, 231, 0.97) 20%,
+      rgba(255, 248, 231, 0.539) 38%,
+      rgba(255, 248, 231, 0.208) 59%,
+      rgba(255, 248, 231, 0.12) 100%
+    ),
+    linear-gradient(
+      0deg,
+      #fff8e748 0%,
+      rgba(255, 248, 231, 0.08) 20%,
+      transparent 80%,
+      #fff8e76b 100%
+    );
+}
+
+.marketplace-hero-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  height: 100%;
+  min-height: inherit;
+  padding: 65px  30px;
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 25px;
+  color: #6B8583;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.hero-eyebrow-dot {
+  width: 8px;
+  height: 8px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: #6B8583;
+  box-shadow: 0 0 12px rgba(107, 133, 131, 0.3);
+}
+
+.marketplace-hero-content h1 {
+  max-width: 750px;
+  margin: 0;
+  color: #341F1A;
+  font-size: clamp(48px, 6.2vw, 84px);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -3.5px;
+}
+
+.marketplace-hero-content h1 span {
+  color: #718F8C;
+}
+
+.marketplace-hero-description {
+  max-width: 470px;
+  margin: 24px 0 0;
+  color: #66534D;
+  font-size: 14px;
+  line-height: 1.3;
+}
+
+.marketplace-hero-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 13px;
+  margin-top: 30px;
+}
+
+.hero-primary-button,
+.hero-secondary-button {
+  display: inline-flex;
+  min-height: 49px;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 0 17px;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  transition:
+    background 220ms ease,
+    color 220ms ease,
+    border-color 220ms ease,
+    transform 220ms ease;
+}
+
+.hero-primary-button {
+  color: #FFF8E7;
+  background: #341F1A;
+}
+
+.hero-primary-button:hover {
+  color: #341F1A;
+  background: #CFE1E2;
+  transform: translateY(-2px);
+}
+
+.hero-primary-button svg {
+  font-size: 11px;
+  transition: transform 220ms ease;
+}
+
+.hero-primary-button:hover svg {
+  transform: translateX(4px);
+}
+.hero-bottom-row {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: auto;
+  padding-top: 35px;
+}
+
+.hero-slide-caption {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #66534D;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+
+.hero-slide-number {
+  color: #718F8C;
+  font-size: 14px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.hero-caption-line {
+  width: 34px;
+  height: 1px;
+  background: rgba(52, 31, 26, 0.4);
+}
+
+.hero-slide-controls {
+  display: flex;
+  gap: 8px;
+}
+
+.hero-slide-controls button {
+  display: flex;
+  width: 38px;
+  height: 38px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(52, 31, 26, 0.25);
+  border-radius: 50%;
+  color: #341F1A;
+  background: rgba(255, 248, 231, 0.65);
+  cursor: pointer;
+  transition: background 200ms ease;
+}
+
+.hero-slide-controls button:hover {
+  background: #CFE1E2;
+}
+
+.hero-slide-controls button svg {
+  font-size: 10px;
+}
+
+.hero-image-indicator {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  gap: 5px;
+  padding: 18px 22px;
+}
+
+.hero-image-indicator span {
+  width: 20px;
+  height: 3px;
+  border-radius: 5px;
+  background: rgba(52, 31, 26, 0.25);
+}
+
+.hero-image-indicator span:first-child {
+  width: 35px;
+  background: #718F8C;
+}
+html {
+  scroll-behavior: smooth;
+}

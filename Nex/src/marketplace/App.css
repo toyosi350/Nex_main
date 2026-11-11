@@ -1,0 +1,11 @@
+body:has(.shop-scope)::-webkit-scrollbar{
+  display: none;
+}
+/* The original marketplace set these on <body>; pin them to the storefront
+ * shell so they never bleed into the workspace (ERP) pages. */
+.shop-scope{
+  padding: 0;
+  margin: 0;
+  min-height: 100vh;
+  background-color: #FFF8E7;
+}
