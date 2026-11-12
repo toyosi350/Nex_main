@@ -54,3 +54,21 @@ VITE_API_BASE_URL=http://localhost:5000/api/v1     # storefront (apiFetch)
 Originals kept as backups: the standalone storefront in
 `Downloads\React_project\Nex-IV`, and the pre-merge ERP copy in
 `Nex_main\.backup-Nex-premerge`.
+
+## Deploy (Vercel)
+
+Deploy only this folder as the Vercel project — do not deploy the repo root.
+
+1. In the Vercel project settings set **Root Directory** to `Nex`.
+   Framework preset: **Vite**. Build command `npm run build`, output
+   directory `dist` (these are also pinned in `vercel.json`).
+2. Add an environment variable `VITE_API_URL` pointing at the deployed
+   backend, including the `/api/v1` prefix, e.g.
+   `https://your-backend-domain.com/api/v1`. See `.env.example`.
+   (Local dev uses the Vite `/api` proxy instead — see `vite.config.js`.)
+3. SPA fallback rewrites are configured in `vercel.json`, so routes like
+   `/home`, `/faq`, `/cart` work on refresh/deep-link.
+4. The backend (Express + Postgres) is not Vercel-hosted; deploy it to a
+   Node host such as Render/Railway/Fly and set the same env vars it
+   expects (see `Nex_backend/.env.example`). Uploaded product images are
+   served from `/api/v1/uploads`, so the backend host needs persistent disk.
