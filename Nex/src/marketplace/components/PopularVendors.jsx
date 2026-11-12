@@ -1,10 +1,13 @@
 import { useMemo } from "react";
 import { Link } from "react-router-dom";
+import { motion, useReducedMotion } from "framer-motion";
 import { CiStar } from "react-icons/ci";
 import { BsArrowUpRight } from "react-icons/bs";
 
 import useProducts from "../hooks/useProducts";
 import "../styles/PopularVendors.css";
+
+const EASE = [0.22, 1, 0.36, 1];
 
 const slugify = (value = "") =>
   value
@@ -14,11 +17,37 @@ const slugify = (value = "") =>
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-|-$/g, "");
 
-function VendorCard({ vendor }) {
+const marqueeVariants = {
+  hidden: {},
+  show: {},
+};
+
+const cardVariants = {
+  hidden: (index) => ({
+    opacity: 0,
+    x: index % 2 === 0 ? -160 : 160,
+  }),
+  show: (index) => ({
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 1.4,
+      delay: Math.min(index, 8) * 0.1,
+      ease: EASE,
+    },
+  }),
+};
+
+function VendorCard({ vendor, index }) {
+  const reduceMotion = useReducedMotion();
   const to = `/vendor/${vendor.slug || slugify(vendor.name)}`;
 
   return (
-    <article className="pv-card">
+    <motion.article
+      className="pv-card"
+      variants={reduceMotion ? undefined : cardVariants}
+      custom={index}
+    >
       <Link
         to={to}
         className="pv-image-link"
@@ -62,11 +91,12 @@ function VendorCard({ vendor }) {
           </span>
         </Link>
       </div>
-    </article>
+    </motion.article>
   );
 }
 
 export default function PopularVendors() {
+  const reduceMotion = useReducedMotion();
   const { products } = useProducts();
 
   const vendors = useMemo(() => {
@@ -140,16 +170,23 @@ export default function PopularVendors() {
         <h2>Popular Vendors</h2>
       </div>
 
-      <div className="pv-marquee">
+      <motion.div
+        className="pv-marquee"
+        variants={marqueeVariants}
+        initial={reduceMotion ? false : "hidden"}
+        whileInView="show"
+        viewport={{ once: true, amount: 0.2 }}
+      >
         <div className="pv-track">
           {scrollingVendors.map((vendor, index) => (
             <VendorCard
               key={`${slugify(vendor.name)}-${index}`}
               vendor={vendor}
+              index={index}
             />
           ))}
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

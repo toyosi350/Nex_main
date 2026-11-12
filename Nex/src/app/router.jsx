@@ -89,6 +89,10 @@ import ProductDetails from '../marketplace/pages/ProductDetails'
 import VendorDetails from '../marketplace/pages/VendorDetails'
 import Wishlist from '../marketplace/pages/Wishlist'
 import AboutUs from '../marketplace/pages/AboutUs'
+import Careers from '../marketplace/pages/Careers'
+import SellOnNexIV from '../marketplace/pages/SellOnNexIV'
+import RefundReturnPolicy from '../marketplace/pages/RefundReturnPolicy'
+import ShippingPolicy from '../marketplace/pages/ShippingPolicy'
 import Order from '../marketplace/pages/Order'
 
 import { RootIndexGate } from './RootIndexGate.jsx'
@@ -129,6 +133,10 @@ export const routes = [
         { path: 'wishlist', element: <Wishlist /> },
         { path: 'faq', element: <FAQPage /> },
         { path: 'about', element: <AboutUs /> },
+        { path: 'careers', element: <Careers /> },
+        { path: 'sell-on-nex-iv', element: <SellOnNexIV /> },
+        { path: 'refund-return-policy', element: <RefundReturnPolicy /> },
+        { path: 'shipping-policy', element: <ShippingPolicy /> },
       ]},
 
       /* ---------------------------------------------------------------

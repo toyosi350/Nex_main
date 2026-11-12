@@ -135,6 +135,21 @@ export const vendorApi = createApi({
       query: ({ vendorId, ...body }) => ({ url: v(vendorId, '/products'), method: 'POST', body }),
       invalidatesTags: ['Products', 'Inventory', 'Categories', 'Dashboard'],
     }),
+    addProductImage: builder.mutation({
+      query: ({ vendorId, productId, file }) => {
+        const form = new FormData()
+        form.append('image', file)
+        return { url: v(vendorId, `/products/${productId}/images`), method: 'POST', body: form }
+      },
+      invalidatesTags: ['Products', 'Inventory', 'Dashboard'],
+    }),
+    deleteProductImage: builder.mutation({
+      query: ({ vendorId, productId, imageId }) => ({
+        url: v(vendorId, `/products/${productId}/images/${imageId}`),
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['Products', 'Inventory', 'Dashboard'],
+    }),
     updateProduct: builder.mutation({
       query: ({ vendorId, productId, ...body }) => ({
         url: v(vendorId, `/products/${productId}`),
@@ -626,6 +641,8 @@ export const {
   useGetProductQuery,
   useCreateProductMutation,
   useUpdateProductMutation,
+  useAddProductImageMutation,
+  useDeleteProductImageMutation,
   useGetWarehousesQuery,
   useGetWarehouseQuery,
   useGetInventoryQuery,

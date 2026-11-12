@@ -23,7 +23,7 @@ export function PlatformReportsPage() {
     .map((v) => ({ name: v.company, revenue: 0 }))
 
   return (
-    <div className="stack">
+    <div className="dashboard-page stack">
       <PageHeader title="Platform reports" subtitle="Aggregate metrics across tenants" icon={<MdInsertChart />} />
       <div className="grid-4">
         <StatCard label="Vendors" value={vendors.length} />
@@ -32,12 +32,12 @@ export function PlatformReportsPage() {
         <StatCard label="Suspended" value={vendors.filter((v) => v.status === 'SUSPENDED').length} tone="danger" />
       </div>
       <Card title="Vendor breakdown">
-        <Select value={scope} onChange={(e) => setScope(e.target.value)} style={{ maxWidth: 280 }} aria-label="Scope">
+        <Select value={scope} onChange={(e) => setScope(e.target.value)} aria-label="Scope">
           <option value="ALL">All vendors</option>
           {vendors.map((v) => <option key={v.id} value={v.id}>{v.company}</option>)}
         </Select>
         <div className="mt-3">
-          <BarChart data={revenueData} xKey="name" series={[{ key: 'revenue', name: 'Revenue', color: '#4f46e5' }]} height={240} />
+          <BarChart data={revenueData} xKey="name" series={[{ key: 'revenue', name: 'Revenue' }]} height={240} />
         </div>
       </Card>
       <Card title="Vendors" padded={false}>

@@ -25,6 +25,8 @@ import {
     getStorefront,
     updateStorefront,
     getStorefrontStats,
+    submitVendorApplication,
+    submitCareerApplication,
 } from "../../../controllers/shop.controller.js";
 
 /*
@@ -81,6 +83,10 @@ router.get("/shop/orders", listOrders);
 router.get("/shop/orders/:orderId", getOrder);
 router.post("/shop/orders", createOrder);
 router.post("/shop/orders/:orderId/cancel", cancelOrder);
+
+/* ---------- public applications (Careers / Sell on Nex-IV) ---------- */
+router.post("/shop/vendor-applications", submitVendorApplication);
+router.post("/shop/careers/applications", submitCareerApplication);
 
 /* ---------- ERP: storefront settings & stats ---------- */
 router.get("/vendor/:vendorId/storefront", getStorefront);

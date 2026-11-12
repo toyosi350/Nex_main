@@ -153,7 +153,6 @@
   color: #D6B89C;
 }
 
-
 .footer-wordmark {
   color: #fff8e757;
   font-size: 250px;
@@ -162,8 +161,11 @@
   line-height: 0.8;
   text-align: left;
   white-space: nowrap;
-  user-select: none;
-  pointer-events: none;
-  transform: translateY(40px);
+  /* transform: translateY(10px); */
   margin-left: -40px;
+  transition: colour 1s ease-in-out;
+}
+.footer-wordmark:hover{
+  color: #FFF8E7;
+  cursor: pointer;
 }

@@ -118,7 +118,7 @@ function ICreateVendorForm({ onDone }) {
       <Field label="Tax ID">
         <Input {...register('taxId')} />
       </Field>
-      <footer className="modal-footer">
+      <footer className="form-footer">
         <Button variant="ghost" onClick={onDone} disabled={createState.isLoading}>Cancel</Button>
         <Button type="submit" loading={createState.isLoading}>Onboard</Button>
       </footer>

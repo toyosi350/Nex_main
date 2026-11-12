@@ -22,6 +22,7 @@ import shopRoutes from "./routes/api/v1/shop.routes.js";
 import supplierRoutes from "./routes/api/v1/supplier.routes.js";
 import ticketRoutes from "./routes/api/v1/ticket.routes.js";
 import { attachUser } from "./middleware/auth.middleware.js";
+import { UPLOADS_DIR } from "./middleware/upload.middleware.js";
 
 const app = express();
 
@@ -31,6 +32,13 @@ app.use(cors());
 
 
 
+
+/*
+| Product pictures uploaded through the vendor workspace. Served
+| from /api/v1/uploads so the storefront reaches them through the
+| same origin (the dev server proxies /api to this service).
+*/
+app.use("/api/v1/uploads", express.static(UPLOADS_DIR, { maxAge: "7d" }));
 
 app.get("/", (req, res) => {
     res.json({

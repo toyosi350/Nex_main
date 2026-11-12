@@ -7,6 +7,12 @@
 :root {
   color-scheme: light;
 
+  /* Layering — must sit above the fixed topbar (z-index: 1000) */
+  --z-dropdown: 1000;
+  --z-drawer: 1020;
+  --z-modal: 1100;
+  --z-toast: 1200;
+
   /* Brand */
   --color-cream: #fff8e7;
   --color-teal-light: #cfe1e2;

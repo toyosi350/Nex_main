@@ -1,14 +1,17 @@
 import { useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import useProducts from "../hooks/useProducts";
 import "../styles/SalesSection.css";
 import { discountPercent, formatMoney } from "../context/ShopContext";
 
+const EASE = [0.22, 1, 0.36, 1];
+
 export default function SalesSection() {
   const [activeIndex, setActiveIndex] = useState(null);
   const navigate = useNavigate();
+  const reduceMotion = useReducedMotion();
 
   const { products } = useProducts();
 
@@ -47,12 +50,27 @@ export default function SalesSection() {
               onMouseEnter={() => setActiveIndex(index)}
               onMouseLeave={() => setActiveIndex(null)}
               onClick={() => openProduct(product)}
+              initial={
+                reduceMotion
+                  ? false
+                  : { opacity: 0, x: index % 2 === 0 ? -160 : 160 }
+              }
+              whileInView={{
+                opacity: 1,
+                x: 0,
+                transition: {
+                  duration: 1.4,
+                  delay: index * 0.1,
+                  ease: EASE,
+                },
+              }}
+              viewport={{ once: true, amount: 0.2 }}
               animate={{
                 flex: isActive ? 3 : 1,
               }}
               transition={{
                 duration: 0.55,
-                ease: [0.22, 1, 0.36, 1],
+                ease: EASE,
               }}
             >
               <img

@@ -52,16 +52,16 @@ function Footer() {
             <ul>
               <li><Link to="/about">About Us</Link></li>
               <li><Link to="/faq">FAQs</Link></li>
-              <li><Link to="">Careers</Link></li>
-              <li><Link to="">Sell on Nex-IV</Link></li>
+              <li><Link to="/careers">Careers</Link></li>
+              <li><Link to="/sell-on-nex-iv">Sell on Nex-IV</Link></li>
             </ul>
           </nav>
 
           <nav className="footer-column" aria-label="Customer service">
             <h3>Customer Service</h3>
             <ul>
-              <li><Link to="">Refund & Return Policy</Link></li>
-              <li><Link to="">Shipping Policy</Link></li>
+              <li><Link to="/faq#returns">Refund & Return Policy</Link></li>
+              <li><Link to="/faq#delivery">Shipping Policy</Link></li>
               <li><Link to="/faq">Help Center</Link></li>
             </ul>
           </nav>

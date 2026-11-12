@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect, useMemo } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { motion, useReducedMotion } from "framer-motion";
 import "../styles/ForYou.css";
 import { FaCartPlus } from "react-icons/fa6";
 import { TbLoader2 } from "react-icons/tb";
@@ -9,17 +10,16 @@ import QuickAddModal from "../components/QuickAddModal";
 import useProducts from "../hooks/useProducts";
 
 const formatPrice = (price) => `₦${price.toLocaleString("en-NG")}`;
+const CARDS_PER_ROW = 4;
 
 function ForYou() {
   const navigate = useNavigate();
+  const reduceMotion = useReducedMotion();
 
   const { products } = useProducts();
 
   const forYouProducts = useMemo(
-    () =>
-      products.filter(
-        (product) => Number(product.id) >= 1 && Number(product.id) <= 20
-      ),
+    () => products.slice(0, 20),
     [products]
   );
 
@@ -108,11 +108,12 @@ function ForYou() {
                       100
                   )
                 : 0;
+              const isNewBatch = product.displayIndex >= newFromIndex;
 
               return (
-                <article
+                <motion.article
                   className={`for-you-card ${
-                    product.displayIndex >= newFromIndex
+                    isNewBatch
                       ? "for-you-card-enter"
                       : ""
                   } ${
@@ -121,6 +122,18 @@ function ForYou() {
                       : ""
                   }`}
                   key={product.displayKey}
+                  initial={
+                    reduceMotion || isNewBatch
+                      ? false
+                      : { opacity: 0, y: -90 }
+                  }
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.2 }}
+                  transition={{
+                    duration: 0.9,
+                    delay: (product.displayIndex % CARDS_PER_ROW) * 0.12,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
                   onClick={() => openProduct(product)}
                 >
                   <Link
@@ -194,7 +207,7 @@ function ForYou() {
                       </button>
                     </div>
                   </div>
-                </article>
+                </motion.article>
               );
             })}
           </div>

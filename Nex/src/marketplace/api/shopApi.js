@@ -188,13 +188,16 @@ export function productImage(seed, index = 0, w = 600, h = 750) {
 export function toMarketplaceProduct(p) {
   if (!p) return p
   const seed = p.imageSeed || p.slug || p.id
+  const uploadedImages = Array.isArray(p.images) ? p.images : []
   return {
     ...p,
-    image: productImage(seed),
-    images: Array.from(
-      { length: Math.min(p.imageCount || 1, 4) },
-      (_, i) => productImage(seed, i),
-    ),
+    image: p.imageUrl || uploadedImages[0] || productImage(seed),
+    images: uploadedImages.length
+      ? uploadedImages
+      : Array.from(
+          { length: Math.min(p.imageCount || 1, 4) },
+          (_, i) => productImage(seed, i),
+        ),
     originalPrice: p.compareAtPrice ?? p.originalPrice ?? null,
     stockLeft: p.available ?? p.stockLeft ?? 0,
     stock: p.available ?? p.stock ?? 0,
@@ -383,6 +386,12 @@ export const shopApi = createApi({
       query: (orderId) => ({ url: `/shop/orders/${orderId}/cancel`, method: 'POST' }),
       invalidatesTags: ['ShopOrders'],
     }),
+    submitVendorApplication: builder.mutation({
+      query: (body) => ({ url: '/shop/vendor-applications', method: 'POST', body }),
+    }),
+    submitCareerApplication: builder.mutation({
+      query: (body) => ({ url: '/shop/careers/applications', method: 'POST', body }),
+    }),
   }),
 })
 
@@ -406,6 +415,8 @@ export const {
   useGetShopOrderQuery,
   useCreateShopOrderMutation,
   useCancelShopOrderMutation,
+  useSubmitVendorApplicationMutation,
+  useSubmitCareerApplicationMutation,
 } = shopApi
 
 export default shopApi

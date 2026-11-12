@@ -1,11 +1,15 @@
+import fs from "fs";
+import path from "path";
+
 import asyncHandler from "../middleware/async.middleware.js";
 
 import table from "../repositories/table.js";
 import { badRequest, notFound } from "../errors/api.errors.js";
-import { sortItems } from "../utils/http.js";
+import { sortItems, nowISO } from "../utils/http.js";
 import { round2 } from "../utils/money.js";
 import { addAudit, body, query, requireVendor, vendorList } from "../middleware/context.js";
-import { enrichProduct } from "../services/enrich.js";
+import { enrichProduct, productImagesOf } from "../services/enrich.js";
+import { UPLOADS_DIR } from "../middleware/upload.middleware.js";
 
 export const listCategories = asyncHandler(async (req, res) => {
     const { vendor } = await requireVendor(req, req.params.vendorId);
@@ -219,4 +223,86 @@ export const getWarehouse = asyncHandler(async (req, res) => {
             totalUnits: rows.reduce((s, r) => s + r.available, 0),
         },
     });
+});
+
+/* ---------- product images (upload) ---------- */
+
+export const listProductImages = asyncHandler(async (req, res) => {
+    const { vendor } = await requireVendor(req, req.params.vendorId);
+    const p = await table("products").find("id = ? AND vendorId = ?", [
+        req.params.productId,
+        req.params.vendorId,
+    ]);
+    if (!p) throw notFound("Product not found");
+    const images = await table("product_images").all("productId = ?", [p.id], {
+        order: "position, createdAt",
+    });
+    return res.json({ success: true, data: images });
+});
+
+export const addProductImage = asyncHandler(async (req, res) => {
+    const { vendor } = await requireVendor(req, req.params.vendorId);
+    const p = await table("products").find("id = ? AND vendorId = ?", [
+        req.params.productId,
+        req.params.vendorId,
+    ]);
+    if (!p) throw notFound("Product not found");
+    const files = req.files || [];
+    if (!files.length) {
+        throw badRequest("Please choose at least one image (JPEG, PNG, WebP, AVIF or GIF)");
+    }
+    const existing = await table("product_images").all("productId = ?", [p.id]);
+    const images = [];
+    for (let i = 0; i < files.length; i += 1) {
+        const file = files[i];
+        images.push({
+            id: "img-" + Date.now().toString(36) + "-" + Math.random().toString(36).slice(2, 6),
+            productId: p.id,
+            vendorId: vendor.id,
+            url: "/api/v1/uploads/products/" + file.filename,
+            position: existing.length + i,
+            createdAt: nowISO(),
+        });
+    }
+    for (const img of images) {
+        await table("product_images").insert(img);
+    }
+    await table("products").update(p.id, { imageCount: existing.length + images.length });
+    await addAudit(req, "updated", "product", p.id, "Added " + images.length + " image(s) to " + p.name, vendor.id);
+    return res.status(201).json({ success: true, data: images });
+});
+
+export const deleteProductImage = asyncHandler(async (req, res) => {
+    const { vendor } = await requireVendor(req, req.params.vendorId);
+    const p = await table("products").find("id = ? AND vendorId = ?", [
+        req.params.productId,
+        req.params.vendorId,
+    ]);
+    if (!p) throw notFound("Product not found");
+    const img = await table("product_images").find("id = ? AND productId = ?", [
+        req.params.imageId,
+        p.id,
+    ]);
+    if (!img) throw notFound("Image not found");
+
+    await table("product_images").delete(img.id);
+
+    /* re-index positions so the storefront keeps a stable order */
+    const remaining = await table("product_images").all("productId = ?", [p.id], {
+        order: "position, createdAt",
+    });
+    for (let i = 0; i < remaining.length; i += 1) {
+        if (remaining[i].position !== i) {
+            await table("product_images").update(remaining[i].id, { position: i });
+        }
+    }
+    await table("products").update(p.id, { imageCount: remaining.length });
+
+    const filePath = path.join(UPLOADS_DIR, String(img.url || "").replace("/api/v1/uploads/", ""));
+    fs.unlink(filePath, (err) => {
+        if (err) console.warn("Could not delete image file", filePath, err.message);
+    });
+
+    await addAudit(req, "updated", "product", p.id, "Removed an image from " + p.name, vendor.id);
+    return res.json({ success: true, data: { deleted: img.id } });
 });

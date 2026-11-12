@@ -54,6 +54,13 @@ export async function enrichProduct(p) {
     };
 }
 
+export async function productImagesOf(productId) {
+    const rows = await table("product_images").all("productId = ?", [productId], {
+        order: "position, createdAt",
+    });
+    return rows.map((r) => r.url);
+}
+
 /** Splits receivables/payables into overdue buckets by due date. */
 export function aging(bucket, dueKey = "dueDate") {
     const now = Date.now();
@@ -115,8 +122,7 @@ export function invoiceOutstanding(invoices) {
 }
 
 /** Shared shape of the receivables payload. */
-export async function receivablesPayload(vendorId, q) {
-    const invoices = (await table("invoices").all("vendorId = ?", [vendorId]))
+export async function receivablesPayload(vendorId, q) {    const invoices = (await table("invoices").all("vendorId = ?", [vendorId]))
         .filter((i) => i.status !== "CANCELLED" && i.status !== "PAID" && i.status !== "DRAFT")
         .map((i) => {
             const days = Math.round((Date.now() - new Date(i.dueDate).getTime()) / 86400000);

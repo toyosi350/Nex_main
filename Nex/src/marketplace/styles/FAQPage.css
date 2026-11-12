@@ -150,6 +150,7 @@
   max-width: 1190px;
   margin: 0 auto;
   padding: 52px 28px 72px;
+  scroll-margin-top: 90px;
 }
 
 .nx-faq-section-heading {

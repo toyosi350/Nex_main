@@ -1050,3 +1050,73 @@ export const getStorefrontStats = asyncHandler(async (req, res) => {
         },
     });
 });
+
+/* ---------- public applications (Careers page / Sell on Nex-IV) ---------- */
+
+export const submitVendorApplication = asyncHandler(async (req, res) => {
+    const b = body(req);
+    const businessName = String(b.businessName || b.business_name || b.business || "").trim();
+    const contactName = String(b.contactName || b.contact || "").trim();
+    const email = String(b.email || "").trim().toLowerCase();
+    const phone = String(b.phone || "").trim();
+    const category = String(b.category || "").trim();
+    const details = String(b.details || "").trim();
+
+    if (!businessName) throw badRequest("Business name is required");
+    if (!contactName) throw badRequest("Contact person is required");
+    if (!email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) throw badRequest("A valid email is required");
+    if (!phone) throw badRequest("Phone is required");
+    if (!category) throw badRequest("Please select a category");
+    if (details.length < 10) throw badRequest("Please tell us a little about what you sell");
+
+    const application = {
+        id: "vapp-" + Date.now().toString(36) + "-" + Math.random().toString(36).slice(2, 6),
+        businessName,
+        contactName,
+        email,
+        phone,
+        category,
+        details,
+        status: "PENDING",
+        createdAt: nowISO(),
+    };
+    await table("vendor_applications").insert(application);
+
+    return res.status(201).json({
+        success: true,
+        data: { id: application.id, status: application.status },
+    });
+});
+
+export const submitCareerApplication = asyncHandler(async (req, res) => {
+    const b = body(req);
+    const fullName = String(b.fullName || b.name || "").trim();
+    const email = String(b.email || "").trim().toLowerCase();
+    const phone = String(b.phone || "").trim();
+    const role = String(b.role || "").trim();
+    const link = String(b.link || "").trim();
+    const note = String(b.note || "").trim();
+
+    if (!fullName) throw badRequest("Full name is required");
+    if (!email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) throw badRequest("A valid email is required");
+    if (!role) throw badRequest("Please select a role");
+    if (note.length < 10) throw badRequest("Please tell us briefly why Nex-IV");
+
+    const application = {
+        id: "capp-" + Date.now().toString(36) + "-" + Math.random().toString(36).slice(2, 6),
+        fullName,
+        email,
+        phone,
+        role,
+        link,
+        note,
+        status: "PENDING",
+        createdAt: nowISO(),
+    };
+    await table("career_applications").insert(application);
+
+    return res.status(201).json({
+        success: true,
+        data: { id: application.id, status: application.status },
+    });
+});

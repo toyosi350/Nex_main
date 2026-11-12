@@ -129,7 +129,7 @@ export function VendorOnboardingDetailPage() {
                   </li>
                 ))}
               </ul>
-              <Link className="link-btn" to={`/admin/vendors/${vendorId}/users`}>Manage team</Link>
+              <Link className="link-btn" to="/admin/users">Manage team</Link>
             </Card>
           </div>
         </aside>

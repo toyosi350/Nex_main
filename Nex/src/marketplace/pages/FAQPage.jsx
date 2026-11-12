@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { useLocation } from "react-router-dom";
 import {
   Plus,
   Search,
@@ -230,9 +231,62 @@ const faqData = {
 };
 
 function FAQPage() {
+  const location = useLocation();
+
   const [selectedCategory, setSelectedCategory] = useState("about");
   const [openQuestion, setOpenQuestion] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
+
+  /* The footer links straight to /faq#delivery and /faq#returns —
+     switch category and clear any search when the hash changes. */
+  useEffect(() => {
+    const hashCategory = location.hash.replace("#", "");
+
+    if (
+      location.pathname === "/faq" &&
+      ["delivery", "returns"].includes(hashCategory)
+    ) {
+      // Syncing state from the URL hash — this mirrors the reference help-centre behavior.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setSelectedCategory(hashCategory);
+      setSearchTerm("");
+      setOpenQuestion(null);
+    }
+  }, [location.pathname, location.hash]);
+
+  /* Smooth-scroll to the questions once the selected category has
+     actually rendered (frame-deferred like the reference app). */
+  useEffect(() => {
+    const hashCategory = location.hash.replace("#", "");
+
+    if (
+      location.pathname !== "/faq" ||
+      !["delivery", "returns"].includes(hashCategory) ||
+      selectedCategory !== hashCategory
+    ) {
+      return;
+    }
+
+    let secondFrame;
+
+    const firstFrame = requestAnimationFrame(() => {
+      secondFrame = requestAnimationFrame(() => {
+        const target = document.getElementById("faq-questions");
+
+        if (target) {
+          const top =
+            target.getBoundingClientRect().top + window.scrollY - 100;
+
+          window.scrollTo({ top, behavior: "smooth" });
+        }
+      });
+    });
+
+    return () => {
+      cancelAnimationFrame(firstFrame);
+      if (secondFrame) cancelAnimationFrame(secondFrame);
+    };
+  }, [location.pathname, location.hash, selectedCategory]);
 
   const normalizedSearch = searchTerm.trim().toLowerCase();
 
@@ -317,7 +371,7 @@ function FAQPage() {
           </div>
         </div>
 
-        <div className="nx-faq-layout">
+        <div className="nx-faq-layout" id="faq-questions">
           <aside className="nx-faq-categories" aria-label="FAQ categories">
             {categories.map((category) => {
               const Icon = category.icon;

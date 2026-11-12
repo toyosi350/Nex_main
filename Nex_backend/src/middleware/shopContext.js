@@ -2,6 +2,7 @@ import table from "../repositories/table.js";
 import { unauthorized } from "../errors/api.errors.js";
 import { nowISO } from "../utils/http.js";
 import { decodeToken, signShopperToken } from "../utils/jwt.js";
+import { productImagesOf } from "../services/enrich.js";
 
 /*
 |--------------------------------------------------------------------
@@ -127,6 +128,7 @@ export function daysSince(iso) {
 export async function shopProductShape(p, { detail = false } = {}) {
   const vendor = p.vendorId ? await table("vendors").get(p.vendorId) : null;
   const available = await productAvailable(p.id);
+  const images = await productImagesOf(p.id);
   const out = {
     id: p.id,
     slug: p.slug,
@@ -151,6 +153,8 @@ export async function shopProductShape(p, { detail = false } = {}) {
     stockStatus: shopStockStatus(available),
     imageSeed: p.imageSeed || p.id,
     imageCount: p.imageCount || 1,
+    imageUrl: images[0] || null,
+    images,
     shortDescription: p.shortDescription || p.description || "",
     freeDelivery: !!p.freeDelivery,
     isDeal: !!p.isDeal,

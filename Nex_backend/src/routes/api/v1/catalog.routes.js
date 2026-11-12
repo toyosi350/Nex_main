@@ -9,7 +9,11 @@ import {
     updateProduct,
     listWarehouses,
     getWarehouse,
+    listProductImages,
+    addProductImage,
+    deleteProductImage,
 } from "../../../controllers/catalog.controller.js";
+import { productImageUpload } from "../../../middleware/upload.middleware.js";
 
 /**
  * CATEGORIES / PRODUCTS / WAREHOUSES — port of services/mock/server.js
@@ -25,6 +29,12 @@ router.get("/vendor/:vendorId/products", listProducts);
 router.get("/vendor/:vendorId/products/:productId", getProduct);
 router.post("/vendor/:vendorId/products", createProduct);
 router.patch("/vendor/:vendorId/products/:productId", updateProduct);
+
+/* ================= PRODUCT IMAGES (upload) ================= */
+
+router.get("/vendor/:vendorId/products/:productId/images", listProductImages);
+router.post("/vendor/:vendorId/products/:productId/images", productImageUpload.array("image", 8), addProductImage);
+router.delete("/vendor/:vendorId/products/:productId/images/:imageId", deleteProductImage);
 
 /* ================= WAREHOUSES ================= */
 
